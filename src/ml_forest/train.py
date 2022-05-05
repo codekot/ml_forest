@@ -10,6 +10,7 @@ receive some arguments such as the
 path to data, 
 model configurations, etc.'''
 
+@click.command()
 @click.option(
     "-d",
     "--dataset-path",
@@ -57,7 +58,7 @@ model configurations, etc.'''
 @click.option(
     "--solver",
     default='saga',
-    type='string',
+    type=str,
     show_default=True
 )
 
@@ -69,7 +70,7 @@ def train(
     # use_scaler: bool,
     max_iter: int,
     logreg_c: float,
-    solver: string
+    solver: str
 ):
     target_column = "Cover_Type"
     # dataset = pd.read_csv(r"D:\CODE\RSML\ml_forest\data\train.csv")
