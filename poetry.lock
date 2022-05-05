@@ -296,6 +296,14 @@ visions = {version = "0.7.4", extras = ["type_image_path"]}
 notebook = ["jupyter-client (>=5.3.4)", "jupyter-core (>=4.6.3)", "ipywidgets (>=7.5.1)"]
 
 [[package]]
+name = "pathlib"
+version = "1.0.1"
+description = "Object-oriented filesystem paths"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "phik"
 version = "0.12.2"
 description = "Phi_K correlation analyzer library"
@@ -627,7 +635,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "8392df0d75e5cc3145087745bc012f17749231e5bcc576233e2acfcc5e202134"
+content-hash = "0d5a67ac825dda8a5e02902525203242d8d40f0a39556db495285b30bd18f668"
 
 [metadata.files]
 atomicwrites = [
@@ -876,6 +884,10 @@ pandas = [
 pandas-profiling = [
     {file = "pandas-profiling-3.2.0.tar.gz", hash = "sha256:8897c2628e3a9b5c915d038aa1782be7fa9e322e405a51aa4586466ab84e8461"},
     {file = "pandas_profiling-3.2.0-py2.py3-none-any.whl", hash = "sha256:dd063f35a99f8f0c75f109a2bbfa13a58209424b84b67842139562630d9035f7"},
+]
+pathlib = [
+    {file = "pathlib-1.0.1-py3-none-any.whl", hash = "sha256:f35f95ab8b0f59e6d354090350b44a80a80635d22efdedfa84c7ad1cf0a74147"},
+    {file = "pathlib-1.0.1.tar.gz", hash = "sha256:6940718dfc3eff4258203ad5021090933e5c04707d5ca8cc9e73c94a7894ea9f"},
 ]
 phik = [
     {file = "phik-0.12.2-cp310-cp310-macosx_10_13_x86_64.whl", hash = "sha256:c4acf6422b844c4cdc8b3c4a3b760838c7d5e0d28570b3ebeb8c95252b757ad3"},
