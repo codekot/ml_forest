@@ -8,6 +8,8 @@ authors = ["codekot <gennadii.shamshurin@gmail.com>"]
 python = "^3.9"
 pandas-profiling = "^3.1.0"
 pandas = "1.3.5"
+sklearn = "^0.0"
+joblib = "^1.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
@@ -18,3 +20,4 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 eda = "ml_forest.eda:eda"
+train = 'ml_forest.train:train'
