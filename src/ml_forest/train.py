@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
 import joblib
 import click
 from pathlib import Path
@@ -37,12 +38,12 @@ model configurations, etc.'''
 #     type=click.FloatRange(0, 1, min_open=True, max_open=True),
 #     show_default=True,
 # )
-# @click.option(
-#     "--use-scaler",
-#     default=True,
-#     type=bool,
-#     show_default=True,
-# )
+@click.option(
+    "--use-scaler",
+    default=True,
+    type=bool,
+    show_default=True,
+)
 @click.option(
     "--max-iter",
     default=100,
@@ -67,16 +68,18 @@ def train(
     save_model_path: Path,
     random_state: int,
     # test_split_ratio: float,
-    # use_scaler: bool,
+    use_scaler: bool,
     max_iter: int,
     logreg_c: float,
     solver: str
 ):
     target_column = "Cover_Type"
-    # dataset = pd.read_csv(r"D:\CODE\RSML\ml_forest\data\train.csv")
     dataset = pd.read_csv(dataset_path)
     X = dataset.drop(target_column, axis=1)
     y = dataset[target_column]
+    if use_scaler:
+        scaler = StandardScaler()
+        X = scaler.fit_transform(X)
     model = LogisticRegression(solver=solver,
                                random_state=random_state,
                                max_iter=max_iter,
