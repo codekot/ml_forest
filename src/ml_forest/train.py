@@ -93,6 +93,8 @@ def cross_valid():
     dataset_path = "data/train.csv"
     dataset = pd.read_csv(dataset_path)
     X = dataset.drop(target_column, axis=1)
+    scaler = StandardScaler()
+    X = scaler.fit_transform(X)
     y = dataset[target_column]
     result = cross_validate(LogisticRegression(),
                    X, y, cv=7,
