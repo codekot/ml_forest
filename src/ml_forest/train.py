@@ -5,6 +5,7 @@ import joblib
 import click
 from pathlib import Path
 from sklearn.model_selection import train_test_split, cross_validate
+import config
 
 '''Your script should be runnable from the terminal, 
 receive some arguments such as the 
@@ -15,14 +16,14 @@ model configurations, etc.'''
 @click.option(
     "-d",
     "--dataset-path",
-    default="data/train.csv",
+    default=config.DATA_PATH,
     type=click.Path(exists=True, dir_okay=False, path_type=Path),
     show_default=True,
 )
 @click.option(
     "-s",
     "--save-model-path",
-    default="data/model.joblib",
+    default=config.MODEL_SAVE_PATH,
     type=click.Path(dir_okay=False, writable=True, path_type=Path),
     show_default=True,
 )
@@ -97,7 +98,7 @@ def cross_valid():
     X = scaler.fit_transform(X)
     y = dataset[target_column]
     result = cross_validate(LogisticRegression(),
-                   X, y, cv=7,
+                   X, y, cv=4,
                    return_train_score=True,
                    scoring=['accuracy', 'neg_mean_squared_error'])
     print(result)
