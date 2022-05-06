@@ -4,7 +4,7 @@ from sklearn.preprocessing import StandardScaler
 import joblib
 import click
 from pathlib import Path
-
+from sklearn.model_selection import train_test_split, cross_validate
 
 '''Your script should be runnable from the terminal, 
 receive some arguments such as the 
@@ -58,7 +58,7 @@ model configurations, etc.'''
 )
 @click.option(
     "--solver",
-    default='saga',
+    default='lbfgs',
     type=str,
     show_default=True
 )
@@ -86,5 +86,19 @@ def train(
                                C=logreg_c).fit(X, y)
     joblib.dump(model, save_model_path)
     print("Train script finished")
+
+def cross_valid():
+    print("Cross validation started")
+    target_column = "Cover_Type"
+    dataset_path = "data/train.csv"
+    dataset = pd.read_csv(dataset_path)
+    X = dataset.drop(target_column, axis=1)
+    y = dataset[target_column]
+    result = cross_validate(LogisticRegression(),
+                   X, y, cv=7,
+                   return_train_score=True,
+                   scoring=['accuracy', 'neg_mean_squared_error'])
+    print(result)
+    print("Cross validation finished")
 
 

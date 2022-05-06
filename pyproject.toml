@@ -23,3 +23,4 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.scripts]
 eda = "ml_forest.eda:eda"
 train = 'ml_forest.train:train'
+cross-valid = 'ml_forest.train:cross_valid'
