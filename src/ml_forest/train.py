@@ -63,6 +63,13 @@ model configurations, etc.'''
     type=str,
     show_default=True
 )
+@click.option(
+    "-f",
+    "--fold",
+    default=0,
+    type=int,
+    show_default=True
+)
 
 def train(
     dataset_path: Path,
@@ -72,7 +79,8 @@ def train(
     use_scaler: bool,
     max_iter: int,
     logreg_c: float,
-    solver: str
+    solver: str,
+    fold: int
 ):
     target_column = "Cover_Type"
     dataset = pd.read_csv(dataset_path)
@@ -81,24 +89,19 @@ def train(
     if use_scaler:
         scaler = StandardScaler()
         X = scaler.fit_transform(X)
-    model = LogisticRegression(solver=solver,
-                               random_state=random_state,
-                               max_iter=max_iter,
-                               C=logreg_c).fit(X, y)
-    joblib.dump(model, save_model_path)
-    print("Train script finished")
+    if fold > 0:
+        cross_valid(X, y, cv=fold)
+    else:
+        model = LogisticRegression(solver=solver,
+                                   random_state=random_state,
+                                   max_iter=max_iter,
+                                   C=logreg_c).fit(X, y)
+        joblib.dump(model, save_model_path)
+        print("Train script finished")
 
-def cross_valid():
-    print("Cross validation started")
-    target_column = "Cover_Type"
-    dataset_path = "data/train.csv"
-    dataset = pd.read_csv(dataset_path)
-    X = dataset.drop(target_column, axis=1)
-    scaler = StandardScaler()
-    X = scaler.fit_transform(X)
-    y = dataset[target_column]
+def cross_valid(X, y, cv):
     result = cross_validate(LogisticRegression(),
-                   X, y, cv=4,
+                   X, y, cv=cv,
                    return_train_score=True,
                    scoring=['accuracy', 'neg_mean_squared_error'])
     print(result)
