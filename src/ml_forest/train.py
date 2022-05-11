@@ -103,8 +103,13 @@ def cross_valid(X, y, cv):
     result = cross_validate(LogisticRegression(),
                    X, y, cv=cv,
                    return_train_score=True,
-                   scoring=['accuracy', 'neg_mean_squared_error'])
-    print(result)
+                   scoring=['accuracy', 'f1_weighted', 'roc_auc_ovr_weighted'])
+    print('Accuracy, train data: ', result['train_accuracy'])
+    print('Accuracy, test data: ', result['test_accuracy'])
+    print('F1 score, train data: ', result['train_f1_weighted'])
+    print('F1 scorem test data: ', result['test_f1_weighted'])
+    print('ROC AUC, train data: ', result['train_roc_auc_ovr_weighted'])
+    print('ROC AUC, test data: ', result['test_roc_auc_ovr_weighted'])
     print("Cross validation finished")
 
 
